@@ -1,0 +1,25 @@
+.container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+.paper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.avatar{
+  margin: 10px;
+  background-color: #df1c3c;
+}
+
+.form {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit {
+  margin: 10px 0 20px;
+}

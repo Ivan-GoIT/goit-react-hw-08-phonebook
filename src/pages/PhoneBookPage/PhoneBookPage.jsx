@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PhoneApp } from 'components/PhoneApp/PhoneApp';
 
-export const App = () => {
+export const PhoneBookPage = () => {
   const error = useSelector(selectError);
 
   if (error) {
