@@ -4,6 +4,8 @@ import {
   Container,
   CssBaseline,
   Grid,
+  IconButton,
+  InputAdornment,
   Link,
   TextField,
   Typography,
@@ -11,6 +13,8 @@ import {
 import LockIcon from '@mui/icons-material/Lock';
 import css from './SignInPage.module.css'
 import { StyledEngineProvider } from '@mui/material/styles';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useState } from 'react';
 // import styled from '@emotion/styled';
 
 
@@ -35,6 +39,11 @@ import { StyledEngineProvider } from '@mui/material/styles';
 // }));
 
 export const SignInPage=()=> {
+  const [showPassword, setshowPassword] = useState(false)
+
+  const handleClickShowPassword = () => {
+    setshowPassword(!showPassword);
+  };
   // const css = useStyles();
 
   return (
@@ -67,9 +76,19 @@ export const SignInPage=()=> {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>}
           />
           <Button
             type="submit"
