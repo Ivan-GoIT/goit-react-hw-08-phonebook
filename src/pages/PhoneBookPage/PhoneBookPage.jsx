@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
 import { selectError } from 'redux/selectors';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { PhoneApp } from 'components/PhoneApp/PhoneApp';
+import { toast } from 'react-toastify';
 
-export const PhoneBookPage = () => {
+ const PhoneBookPage = () => {
   const error = useSelector(selectError);
 
   if (error) {
@@ -12,20 +11,8 @@ export const PhoneBookPage = () => {
   }
 
   return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
       <PhoneApp />
-    </>
   );
 };
+
+export default PhoneBookPage

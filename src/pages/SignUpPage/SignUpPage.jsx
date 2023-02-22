@@ -10,19 +10,21 @@ import {
   Typography,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
+import css from './SignUpPage.module.css';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-import css from '../SignUpPage/SignUpPage.module.css';
+const initialState = {
+  name: '',
+  email: '',
+  password: '',
+};
 
-const initialState={
-  email:'',
-  password:''
-}
-
-const SignInPage = () => {
+const SignUpPage = () => {
   const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
 
@@ -30,15 +32,22 @@ const SignInPage = () => {
     setshowPassword(!showPassword);
   };
 
-  const onCangeInputHandler=evt=>{
-    const {name,value}=evt.target
-    setValues(prev=>({...prev,[name]:value}))
-  }
-
-  const onSubmitHandler = evt => {
-    evt.preventDefault();
+  const onCangeInputHandler = evt => {
+    const { name, value } = evt.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
+  const onSubmitHandler =async (evt) => {
+    evt.preventDefault();
+    try {
+     await axios.post('https://connections-api.herokuapp.com/users/signup', values);
+      toast.error('User created')
+
+    } catch (error) {
+      console.log(error)
+      toast.error('Something wrong')
+    }
+  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -50,9 +59,22 @@ const SignInPage = () => {
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <form className={css.form} onSubmit={onSubmitHandler}>
+            <TextField
+              value={values.name}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              onChange={onCangeInputHandler}
+            />
             <TextField
               value={values.email}
               variant="outlined"
@@ -77,6 +99,7 @@ const SignInPage = () => {
               type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
+              onChange={onCangeInputHandler}
               // endAdornment={
               //   <InputAdornment position="end">
               //     <IconButton
@@ -87,7 +110,6 @@ const SignInPage = () => {
               //     </IconButton>
               //   </InputAdornment>
               // }
-              onChange={onCangeInputHandler}
             />
             <Button
               type="submit"
@@ -96,11 +118,8 @@ const SignInPage = () => {
               color="primary"
               className={css.submit}
             >
-              Sign In
+              Sign Up
             </Button>
-            <Link href="#" variant="body1">
-              {"Don't have an account? Sign Up"}
-            </Link>
           </form>
         </div>
       </Container>
@@ -108,4 +127,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignUpPage;

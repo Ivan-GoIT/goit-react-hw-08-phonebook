@@ -1,0 +1,23 @@
+.logo{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+.logo>h1{
+    position: absolute;
+    top:0px;
+    font-size: 60px;
+    color: #1976d2;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+}
+.logo>h1 span{
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    transform-origin: 0 250px;
+}
