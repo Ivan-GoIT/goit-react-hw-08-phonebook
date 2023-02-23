@@ -25,7 +25,7 @@ export const App = () => {
       />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<SignInPage />} />
+          <Route path="/sign_in" element={<SignInPage />} />
           <Route path="/sign_up" element={<SignUpPage />} />
           <Route path="/phonebook" element={<PhoneBookPage />} />
         </Routes>

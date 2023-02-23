@@ -16,29 +16,45 @@ import { useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
 
 import css from '../SignUpPage/SignUpPage.module.css';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { authLoginThunk } from 'redux/auth/authThunk';
+import { selectAuthStatus } from 'redux/auth/authSelectors';
+import { STATUS } from 'assets/constants';
+import Loader from 'components/Loader/Loader';
 
-const initialState={
-  email:'',
-  password:''
-}
+const initialState = {
+  email: '',
+  password: '',
+};
 
 const SignInPage = () => {
+  const dispatch = useDispatch();
   const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
+  const status = useSelector(selectAuthStatus);
 
   const handleClickShowPassword = () => {
     setshowPassword(!showPassword);
   };
 
-  const onCangeInputHandler=evt=>{
-    const {name,value}=evt.target
-    setValues(prev=>({...prev,[name]:value}))
-  }
-
-  const onSubmitHandler = evt => {
-    evt.preventDefault();
+  const onCangeInputHandler = evt => {
+    const { name, value } = evt.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
+  const onSubmitHandler = async evt => {
+    evt.preventDefault();
+    try {
+      await dispatch(authLoginThunk(values)).unwrap();
+      toast.success('Success');
+
+  
+    } catch (error) {
+      toast.error('Something went wrong');
+    }
+
+  };
 
   return (
     <StyledEngineProvider injectFirst>
@@ -46,9 +62,13 @@ const SignInPage = () => {
       <Container component="main" maxWidth="xs" className={css.container}>
         <CssBaseline />
         <div className={css.paper}>
-          <Avatar className={css.avatar}>
-            <LockIcon />
-          </Avatar>
+          {status === STATUS.loading ? (
+            <Loader />
+          ) : (
+            <Avatar id="login_avatar" className={css.ligin_avatar}>
+              <LockIcon />
+            </Avatar>
+          )}
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>

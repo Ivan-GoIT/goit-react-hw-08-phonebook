@@ -40,12 +40,13 @@ const SignUpPage = () => {
   const onSubmitHandler =async (evt) => {
     evt.preventDefault();
     try {
+
      await axios.post('https://connections-api.herokuapp.com/users/signup', values);
-      toast.error('User created')
+      toast.success('User created')
 
     } catch (error) {
       console.log(error)
-      toast.error('Something wrong')
+      toast.error('something went wrong')
     }
   };
 
@@ -55,7 +56,7 @@ const SignUpPage = () => {
       <Container component="main" maxWidth="xs" className={css.container}>
         <CssBaseline />
         <div className={css.paper}>
-          <Avatar className={css.avatar}>
+          <Avatar className={css.ligin_avatar}>
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">

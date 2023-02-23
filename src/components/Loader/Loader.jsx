@@ -8,7 +8,7 @@ const Loader = () => {
         strokeColor="blue"
         strokeWidth="5"
         animationDuration="1.5"
-        width="96"
+        maxwidth="96"
         visible={true}
       />
     </div>
