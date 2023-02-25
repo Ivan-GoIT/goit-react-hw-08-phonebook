@@ -3,13 +3,14 @@ import {
   Button,
   Container,
   CssBaseline,
-  IconButton,
-  InputAdornment,
+  // IconButton,
+  // InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
 import { StyledEngineProvider } from '@mui/material/styles';
-import { PersonAdd, Visibility, VisibilityOff } from '@mui/icons-material';
+import { PersonAdd } from '@mui/icons-material';
+// import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
 import { toast } from 'react-toastify';
@@ -29,14 +30,14 @@ const initialState = {
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
-  const [showPassword, setshowPassword] = useState(false);
+  // const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
 
   const navigate = useNavigate();
 
-  const handleClickShowPassword = () => {
-    setshowPassword(!showPassword);
-  };
+  // const handleClickShowPassword = () => {
+  //   setshowPassword(!showPassword);
+  // };
 
   const onCangeInputHandler = evt => {
     const { name, value } = evt.target;
@@ -110,7 +111,10 @@ const SignUpPage = () => {
               fullWidth
               name="password"
               label="Password"
-              type={showPassword ? 'text' : 'password'}
+              type='password'
+
+              // type={showPassword ? 'text' : 'password'}
+              
               id="password"
               autoComplete="current-password"
               onChange={onCangeInputHandler}
