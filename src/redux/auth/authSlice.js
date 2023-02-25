@@ -4,6 +4,7 @@ import { authInitState } from './authInitialState';
 import { authLoginThunk, authLogoutThunk } from './authThunk';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { getProfileThunk } from 'redux/profile/profileThunk';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -26,12 +27,16 @@ const authSlice = createSlice({
       .addCase(authLogoutThunk.pending, state => {
         state.status = STATUS.loading;
       })
-      .addCase(authLogoutThunk.fulfilled, (state) => {
+      .addCase(authLogoutThunk.fulfilled, state => {
         state.status = STATUS.idle;
         state.data = null;
       })
       .addCase(authLogoutThunk.rejected, state => {
         state.status = STATUS.rejected;
+      })
+      .addCase(getProfileThunk.rejected, state => {
+        state.status = STATUS.idle;
+        state.data = null;
       }),
 });
 
