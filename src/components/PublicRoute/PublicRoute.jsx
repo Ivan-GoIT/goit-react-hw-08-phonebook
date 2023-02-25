@@ -1,0 +1,8 @@
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
+import { selectAuthToken } from 'redux/auth/authSelectors';
+
+export const PublicRoute = () => {
+  const token = useSelector(selectAuthToken);
+  return token ? <Navigate to="/phonebook" replace /> : <Outlet />;
+};

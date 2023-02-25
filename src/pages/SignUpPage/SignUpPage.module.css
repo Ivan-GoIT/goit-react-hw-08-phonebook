@@ -10,9 +10,15 @@
   flex-direction: column;
   align-items: center;
 }
-.ligin_avatar{
+.loginAvatar{
   margin: 10px;
+}
+.closed{
   background-color: #df1c3c;
+}
+.success{
+  background-color: #4caf50;
+
 }
 
 .form {

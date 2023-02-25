@@ -1,10 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { privateApi, publicApi, token } from 'http/http';
 
 export const authLoginThunk = createAsyncThunk('login', async values => {
-  const { data } = await axios.post(
-    'https://connections-api.herokuapp.com/users/login',
-    values
-  );
-  return data
+
+  const { data } = await publicApi.post('/users/login', values);
+
+  token.set('Bearer ' + data.token);
+  return data;
 });
+
+export const authLogoutThunk=createAsyncThunk(
+  'logout',async values=>{
+    const { data } = await privateApi.post('/users/logout', values);
+
+  token.set('Bearer ' + data.token);
+  return data;
+  }
+  
+)

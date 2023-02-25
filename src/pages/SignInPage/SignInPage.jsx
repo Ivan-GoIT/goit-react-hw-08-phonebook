@@ -22,6 +22,8 @@ import { authLoginThunk } from 'redux/auth/authThunk';
 import { selectAuthStatus } from 'redux/auth/authSelectors';
 import { STATUS } from 'assets/constants';
 import Loader from 'components/Loader/Loader';
+import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   email: '',
@@ -33,6 +35,8 @@ const SignInPage = () => {
   const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
   const status = useSelector(selectAuthStatus);
+
+const navigate=useNavigate()
 
   const handleClickShowPassword = () => {
     setshowPassword(!showPassword);
@@ -47,14 +51,13 @@ const SignInPage = () => {
     evt.preventDefault();
     try {
       await dispatch(authLoginThunk(values)).unwrap();
-      toast.success('Success');
-
-  
+      navigate('/phonebook',{replace:true})
     } catch (error) {
       toast.error('Something went wrong');
     }
-
   };
+
+  const toggleIconColor=()=>classNames(css.loginAvatar,status===STATUS.success?css.success:css.closed)
 
   return (
     <StyledEngineProvider injectFirst>
@@ -65,7 +68,7 @@ const SignInPage = () => {
           {status === STATUS.loading ? (
             <Loader />
           ) : (
-            <Avatar id="login_avatar" className={css.ligin_avatar}>
+            <Avatar id="login_avatar" className={toggleIconColor()}>
               <LockIcon />
             </Avatar>
           )}
@@ -118,7 +121,7 @@ const SignInPage = () => {
             >
               Sign In
             </Button>
-            <Link href="#" variant="body1">
+            <Link href="/goit-react-hw-08-phonebook/sign_up" variant="body1">
               {"Don't have an account? Sign Up"}
             </Link>
           </form>

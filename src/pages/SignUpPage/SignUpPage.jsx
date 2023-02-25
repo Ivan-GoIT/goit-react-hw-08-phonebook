@@ -5,18 +5,21 @@ import {
   CssBaseline,
   IconButton,
   InputAdornment,
-  Link,
   TextField,
   Typography,
 } from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
-import css from './SignUpPage.module.css';
 import { StyledEngineProvider } from '@mui/material/styles';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { PersonAdd, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { authLoginThunk } from 'redux/auth/authThunk';
+import { publicApi } from 'http/http';
+
+import css from './SignUpPage.module.css';
 
 const initialState = {
   name: '',
@@ -25,8 +28,11 @@ const initialState = {
 };
 
 const SignUpPage = () => {
+  const dispatch = useDispatch();
   const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
+
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => {
     setshowPassword(!showPassword);
@@ -37,16 +43,23 @@ const SignUpPage = () => {
     setValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const onSubmitHandler =async (evt) => {
+  const onSubmitHandler = async evt => {
     evt.preventDefault();
     try {
+      await publicApi.post(
+        '/users/signup',
+        values
+      );
 
-     await axios.post('https://connections-api.herokuapp.com/users/signup', values);
-      toast.success('User created')
+      await dispatch(
+        authLoginThunk({ email: values.email, password: values.password })
+      ).unwrap();
 
+      toast.success('User created');
+      navigate('/phonebook', { replace: true });
     } catch (error) {
-      console.log(error)
-      toast.error('something went wrong')
+      console.log(error);
+      toast.error('something went wrong');
     }
   };
 
@@ -56,8 +69,8 @@ const SignUpPage = () => {
       <Container component="main" maxWidth="xs" className={css.container}>
         <CssBaseline />
         <div className={css.paper}>
-          <Avatar className={css.ligin_avatar}>
-            <LockIcon />
+          <Avatar className={classNames(css.loginAvatar, css.closed)}>
+            <PersonAdd />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign Up

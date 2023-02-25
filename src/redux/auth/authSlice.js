@@ -1,18 +1,16 @@
-// const initialState = {
-//     user: { name: null, email: null },
-//     token: null,
-//     isLoggedIn: false,
-//     isRefreshing: false,
-//   };
-
 import { createSlice } from '@reduxjs/toolkit';
 import { STATUS } from 'assets/constants';
 import { authInitState } from './authInitialState';
-import { authLoginThunk } from './authThunk';
+import { authLoginThunk, authLogoutThunk } from './authThunk';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: authInitState,
+  redusers: {
+    logoutAction: () => authInitState,
+  },
   extraReducers: builder =>
     builder
       .addCase(authLoginThunk.pending, state => {
@@ -24,8 +22,24 @@ const authSlice = createSlice({
       })
       .addCase(authLoginThunk.rejected, state => {
         state.status = STATUS.rejected;
+      })
+      .addCase(authLogoutThunk.pending, state => {
+        state.status = STATUS.loading;
+      })
+      .addCase(authLogoutThunk.fulfilled, (state) => {
+        console.log('authLogoutThunk',state);
+        state.status = STATUS.idle;
+        state.data = null;
+      })
+      .addCase(authLogoutThunk.rejected, state => {
+        state.status = STATUS.rejected;
       }),
 });
 
-export const authReduser = authSlice.reducer;
-
+export const authReduser = persistReducer(
+  {
+    key: 'auth',
+    storage,
+  },
+  authSlice.reducer
+);
