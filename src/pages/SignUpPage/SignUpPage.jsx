@@ -14,7 +14,6 @@ import { PersonAdd } from '@mui/icons-material';
 import { useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { authLoginThunk } from 'redux/auth/authThunk';
@@ -33,7 +32,6 @@ const SignUpPage = () => {
   // const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
 
-  const navigate = useNavigate();
 
   // const handleClickShowPassword = () => {
   //   setshowPassword(!showPassword);
@@ -47,17 +45,13 @@ const SignUpPage = () => {
   const onSubmitHandler = async evt => {
     evt.preventDefault();
     try {
-      await publicApi.post(
-        '/users/signup',
-        values
-      );
+      await publicApi.post('/users/signup', values);
 
       await dispatch(
         authLoginThunk({ email: values.email, password: values.password })
       ).unwrap();
 
       toast.success('User created');
-      navigate('/phonebook', { replace: true });
     } catch (error) {
       toast.error('something went wrong');
     }
@@ -110,8 +104,7 @@ const SignUpPage = () => {
               fullWidth
               name="password"
               label="Password"
-              type='password'
-
+              type="password"
               // type={showPassword ? 'text' : 'password'}
 
               id="password"
