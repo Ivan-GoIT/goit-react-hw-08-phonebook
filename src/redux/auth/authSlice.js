@@ -27,7 +27,6 @@ const authSlice = createSlice({
         state.status = STATUS.loading;
       })
       .addCase(authLogoutThunk.fulfilled, (state) => {
-        console.log('authLogoutThunk',state);
         state.status = STATUS.idle;
         state.data = null;
       })

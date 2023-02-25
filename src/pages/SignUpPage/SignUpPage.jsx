@@ -59,7 +59,6 @@ const SignUpPage = () => {
       toast.success('User created');
       navigate('/phonebook', { replace: true });
     } catch (error) {
-      console.log(error);
       toast.error('something went wrong');
     }
   };
@@ -114,7 +113,7 @@ const SignUpPage = () => {
               type='password'
 
               // type={showPassword ? 'text' : 'password'}
-              
+
               id="password"
               autoComplete="current-password"
               onChange={onCangeInputHandler}

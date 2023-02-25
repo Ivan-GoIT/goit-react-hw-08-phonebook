@@ -23,7 +23,6 @@ import { selectAuthStatus } from 'redux/auth/authSelectors';
 import { STATUS } from 'assets/constants';
 import Loader from 'components/Loader/Loader';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   email: '',
@@ -36,7 +35,6 @@ const SignInPage = () => {
   const [values, setValues] = useState(initialState);
   const status = useSelector(selectAuthStatus);
 
-const navigate=useNavigate()
 
   // const handleClickShowPassword = () => {
   //   setshowPassword(!showPassword);
@@ -51,7 +49,6 @@ const navigate=useNavigate()
     evt.preventDefault();
     try {
       await dispatch(authLoginThunk(values)).unwrap();
-      navigate('/phonebook',{replace:true})
     } catch (error) {
       toast.error('Something went wrong');
     }
