@@ -7,6 +7,8 @@ import { PublicRoute } from 'components/PublicRoute/PublicRoute';
 import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
 
 const PhoneBookPage = lazy(() => import('pages/PhoneBookPage/PhoneBookPage'));
+
+const StartPage = lazy(() => import('pages/StartPage/StartPage'));
 const SignInPage = lazy(() => import('pages/SignInPage/SignInPage'));
 const SignUpPage = lazy(() => import('pages/SignUpPage/SignUpPage'));
 
@@ -27,6 +29,7 @@ export const App = () => {
       />
       <Suspense fallback={<Loader />}>
         <Routes>
+        <Route path="" element={<StartPage />} />
           <Route path="" element={<PublicRoute />}>
             <Route path="/sign_in" element={<SignInPage />} />
             <Route path="/sign_up" element={<SignUpPage />} />

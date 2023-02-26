@@ -1,0 +1,35 @@
+.startPage {
+  height: 100vh;
+  background-image: url('../../assets/images/phonebook.jpg');
+  background-size: cover;
+  background-position: center;
+  padding-left: 50px;
+}
+.content {
+  height: 100%;
+  display: flex;
+}
+
+.buttonPosition {
+  margin-top: 50px;
+}
+
+.title {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  color: #fff;
+  font-size: 144px;
+  text-shadow: 2px 2px 4px #000, 8px 8px 8px #9c27b0;
+  rotate: -6deg;
+}
+
+.button {
+  text-shadow: 2px 2px 4px #000, 8px 8px 8px #9c27b0;
+  font-size: 72px;
+  padding: 30px 30px;
+}
+
+.button:hover,
+.button:focus {
+  text-shadow: 2px 2px 4px #fff, 8px 8px 8px #9c27b0;
+}

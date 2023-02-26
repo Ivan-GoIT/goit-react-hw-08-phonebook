@@ -120,7 +120,7 @@ const SignInPage = () => {
               Sign In
             </Button>
             <Link href="/goit-react-hw-08-phonebook/sign_up" variant="body1">
-              {"Don't have an account? Sign Up"}
+              Don't have an account? Sign Up
             </Link>
           </form>
         </div>
