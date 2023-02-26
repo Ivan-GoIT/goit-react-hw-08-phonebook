@@ -3,6 +3,8 @@ import {
   Button,
   Container,
   CssBaseline,
+  IconButton,
+  InputAdornment,
   // IconButton,
   // InputAdornment,
   Link,
@@ -23,6 +25,7 @@ import { selectAuthStatus } from 'redux/auth/authSelectors';
 import { STATUS } from 'assets/constants';
 import Loader from 'components/Loader/Loader';
 import classNames from 'classnames';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const initialState = {
   email: '',
@@ -31,14 +34,14 @@ const initialState = {
 
 const SignInPage = () => {
   const dispatch = useDispatch();
-  // const [showPassword, setshowPassword] = useState(false);
+   const [showPassword, setshowPassword] = useState(false);
   const [values, setValues] = useState(initialState);
   const status = useSelector(selectAuthStatus);
 
 
-  // const handleClickShowPassword = () => {
-  //   setshowPassword(!showPassword);
-  // };
+  const handleClickShowPassword = () => {
+    setshowPassword(!showPassword);
+  };
 
   const onCangeInputHandler = evt => {
     const { name, value } = evt.target;
@@ -94,20 +97,22 @@ const SignInPage = () => {
               fullWidth
               name="password"
               label="Password"
-              type='password'
-              //type={showPassword ? 'text' : 'password'}
+              //type='password'
+              type={showPassword ? 'text' : 'password'}
               id="password"
               autoComplete="current-password"
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <IconButton
-              //       aria-label="toggle password visibility"
-              //       onClick={handleClickShowPassword}
-              //     >
-              //       {showPassword ? <Visibility /> : <VisibilityOff />}
-              //     </IconButton>
-              //   </InputAdornment>
-              // }
+              InputProps={{endAdornment:
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {!showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }}
+              
               onChange={onCangeInputHandler}
             />
             <Button
