@@ -17,25 +17,29 @@ const Header = () => {
     }
   }, [dispatch, token]);
 
-  const handlerLogoutButton=()=>{
-    dispatch(authLogoutThunk())
-  }
+  const handlerLogoutButton = () => {
+    dispatch(authLogoutThunk());
+  };
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Phonebook
-            </Typography>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 0.2 }}>
-              {userName}
-            </Typography>
-            <Button color="inherit" onClick={handlerLogoutButton}>LogOut</Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      <header>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Phonebook
+              </Typography>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 0.2 }}>
+                {userName}
+              </Typography>
+              <Button color="inherit" onClick={handlerLogoutButton}>
+                LogOut
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      </header>
     </>
   );
 };
