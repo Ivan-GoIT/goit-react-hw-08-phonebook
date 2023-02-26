@@ -1,5 +1,4 @@
 import React from 'react';
-import backgroundImage from '../../assets/images/phonebook.jpg';
 import { Grid, Link, Typography } from '@mui/material';
 import css from './StartPage.module.css';
 
